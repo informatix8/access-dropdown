@@ -1,0 +1,1666 @@
+<!doctype html>
+<html>
+    <head lang="en">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>AccessDropdown Sample</title>
+
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+        <style>
+            .inline-styling-was-stopped {
+                background-color: red;
+            }
+
+            .full-screen {
+                background-color: blue;
+            }
+
+            .all-width-center-height {
+                background-color: green;
+            }
+
+            .all-height-center-width {
+                background-color: yellow;
+            }
+
+            .left-bottom {
+                background-color: orange;
+            }
+
+            .left-top {
+                background-color: lightgreen;
+            }
+
+            .right-bottom {
+                background-color: cyan;
+            }
+
+            .right-top {
+                background-color: blueviolet;
+            }
+
+            .access-dropdown-menu-list {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .access-dropdown-item {
+                border: 0;
+                color: #000000;
+                display: block;
+                font-size: 16px;
+                line-height: 1.25;
+                min-width: 200px;
+                margin: 5px;
+                padding: 5px;
+                text-align: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .access-dropdown-item:focus,
+            .access-dropdown-item:hover{
+                outline: 5px dotted yellow;
+            }
+        </style>
+        <style>
+            html {
+                line-height: 1.15;
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%
+            }
+
+            body {
+                margin: 0;
+                color: #212121;
+                font-size: 16px;
+                line-height: 1.4
+            }
+
+            article, aside, details, figcaption, figure, footer, header, main, menu, nav, section {
+                display: block
+            }
+
+            h1 {
+                font-size: 2em;
+                margin: .67em 0
+            }
+
+            figure {
+                margin: 1em 40px
+            }
+
+            hr {
+                box-sizing: content-box;
+                height: 0;
+                overflow: visible
+            }
+
+            code, kbd, pre, samp {
+                font-family: monospace, monospace;
+                font-size: 1em
+            }
+
+            a {
+                background-color: transparent;
+                -webkit-text-decoration-skip: objects
+            }
+
+            abbr[title] {
+                border-bottom: none;
+                text-decoration: underline dotted
+            }
+
+            b, strong {
+                font-weight: bolder
+            }
+
+            dfn {
+                font-style: italic
+            }
+
+            mark {
+                background-color: #ffff00;
+                color: #000000
+            }
+
+            small {
+                font-size: 80%
+            }
+
+            sub, sup {
+                font-size: 75%;
+                line-height: 0;
+                position: relative;
+                vertical-align: baseline
+            }
+
+            sub {
+                bottom: -.25em
+            }
+
+            sup {
+                top: -.5em
+            }
+
+            audio, canvas, video {
+                display: inline-block
+            }
+
+            audio:not([controls]) {
+                display: none;
+                height: 0
+            }
+
+            img {
+                border-style: none
+            }
+
+            svg:not(:root) {
+                overflow: hidden
+            }
+
+            button, input, optgroup, select, textarea {
+                font-family: sans-serif;
+                font-size: 100%;
+                line-height: 1.15;
+                margin: 0
+            }
+
+            button, input {
+                overflow: visible
+            }
+
+            button, select {
+                text-transform: none
+            }
+
+            [type=reset], [type=submit], button, html [type=button] {
+                -webkit-appearance: button
+            }
+
+            [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner, button::-moz-focus-inner {
+                border-style: none;
+                padding: 0
+            }
+
+            [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring, button:-moz-focusring {
+                outline: 1px dotted ButtonText
+            }
+
+            [type=checkbox], [type=radio] {
+                box-sizing: border-box;
+                padding: 0
+            }
+
+            [type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button {
+                height: auto
+            }
+
+            [type=search] {
+                -webkit-appearance: textfield;
+                outline-offset: -2px
+            }
+
+            [type=search]::-webkit-search-cancel-button, [type=search]::-webkit-search-decoration {
+                -webkit-appearance: none
+            }
+
+            ::-webkit-file-upload-button {
+                -webkit-appearance: button;
+                font: inherit
+            }
+
+            fieldset {
+                padding: .35em .75em .625em
+            }
+
+            legend {
+                box-sizing: border-box;
+                display: table;
+                max-width: 100%;
+                padding: 0;
+                color: inherit;
+                white-space: normal
+            }
+
+            progress {
+                display: inline-block;
+                vertical-align: baseline
+            }
+
+            textarea {
+                overflow: auto
+            }
+
+            summary {
+                display: list-item
+            }
+
+            [hidden], template {
+                display: none
+            }
+
+            /*# sourceMappingURL=../../maps/assets/styles/global-0fdb8101be.css.map */
+            @keyframes shimmy {
+                0%, to {
+                    transform: translate3d(0, 0, 0)
+                }
+                20%, 60% {
+                    transform: translate3d(-10px, 0, 0)
+                }
+                40%, 80% {
+                    transform: translate3d(10px, 0, 0)
+                }
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg)
+                }
+                to {
+                    transform: rotate(359deg)
+                }
+            }
+
+            @keyframes a {
+                0% {
+                    transform: rotate(0)
+                }
+                to {
+                    transform: rotate(2turn)
+                }
+            }
+
+            .xh-form {
+                box-sizing: border-box
+            }
+
+            .xh-form *, .xh-form ::after, .xh-form ::before {
+                box-sizing: inherit
+            }
+
+            .shimmy {
+                animation-duration: 800ms;
+                animation-name: shimmy
+            }
+
+            .spin {
+                animation: spin 2s infinite linear;
+                display: inline-block
+            }
+
+            .xh-form {
+                color: #212121;
+                font-family: sans-serif
+            }
+
+            .xh-form button, .xh-form input, .xh-form select, .xh-form textarea {
+                font-family: inherit;
+                font-size: 100%
+            }
+
+            .xh-form-validation-message {
+                color: #e31c3d
+            }
+
+            .xh-field {
+                color: inherit;
+                margin-bottom: 8px
+            }
+
+            .xh-field-validation-message {
+                color: #e31c3d
+            }
+
+            .xh-field .basic-input {
+                background-color: #ffffff;
+                border-color: #aeb0b5;
+                border-radius: 4px;
+                border-style: solid;
+                border-width: 1px;
+                padding: 4px 6px;
+                width: 100%
+            }
+
+            .xh-field .textarea-input {
+                resize: vertical
+            }
+
+            .xh-field .radio-group {
+                border: 0;
+                margin: 0;
+                padding: 0
+            }
+
+            .xh-field .legend {
+                padding: 0
+            }
+
+            .multiselect.not-found .multiselect__content-wrapper {
+                display: none
+            }
+
+            fieldset[disabled] .multiselect {
+                pointer-events: none
+            }
+
+            .multiselect__spinner {
+                background: #ffffff;
+                display: block;
+                height: 35px;
+                position: absolute;
+                right: 1px;
+                top: 1px;
+                width: 48px
+            }
+
+            .multiselect__spinner:after, .multiselect__spinner:before {
+                animation-iteration-count: infinite;
+                animation: a 2.4s cubic-bezier(.51, .09, .21, .8);
+                border-color: #41b883 transparent transparent;
+                border-radius: 100%;
+                border-style: solid;
+                border-width: 2px;
+                box-shadow: 0 0 0 1px transparent;
+                content: '';
+                height: 16px;
+                left: 50%;
+                margin: -8px 0 0 -8px;
+                position: absolute;
+                top: 50%;
+                width: 16px
+            }
+
+            .multiselect__spinner:before {
+                animation: a 2.4s cubic-bezier(.41, .26, .2, .62)
+            }
+
+            .multiselect__loading-enter-active {
+                opacity: 1;
+                transition: opacity .4s ease-in-out
+            }
+
+            .multiselect__loading-leave-active {
+                opacity: 0;
+                transition: opacity .4s ease-in-out
+            }
+
+            .multiselect__loading-enter {
+                opacity: 0
+            }
+
+            .multiselect {
+                box-sizing: content-box;
+                color: #35495e;
+                display: block;
+                font-family: inherit;
+                position: relative;
+                text-align: left;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                width: 100%
+            }
+
+            .multiselect * {
+                box-sizing: border-box
+            }
+
+            .multiselect:focus {
+                outline: 0
+            }
+
+            .multiselect__input, .multiselect__single {
+                background: #ffffff;
+                border-radius: 5px;
+                border: 0;
+                box-sizing: border-box;
+                display: inline-block;
+                font-family: inherit;
+                font-size: 14px;
+                line-height: 20px;
+                margin-bottom: 8px;
+                min-height: 20px;
+                padding: 0 0 0 5px;
+                position: relative;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                transition: border .1s ease;
+                vertical-align: top;
+                width: 100%
+            }
+
+            .multiselect__input:hover {
+                border-color: #cfcfcf
+            }
+
+            .multiselect__input:focus {
+                border-color: #a8a8a8;
+                outline: 0
+            }
+
+            .multiselect__single:hover {
+                border-color: #cfcfcf
+            }
+
+            .multiselect__single:focus {
+                border-color: #a8a8a8;
+                outline: 0
+            }
+
+            .multiselect--disabled {
+                background: #ededed;
+                opacity: .6;
+                pointer-events: none
+            }
+
+            .multiselect--disabled .multiselect__current, .multiselect--disabled .multiselect__select {
+                background: #ededed;
+                color: #a6a6a6
+            }
+
+            .multiselect--active {
+                z-index: 1
+            }
+
+            .multiselect--active:not(.multiselect--above) .multiselect__current, .multiselect--active:not(.multiselect--above) .multiselect__input, .multiselect--active:not(.multiselect--above) .multiselect__tags {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0
+            }
+
+            .multiselect--active .multiselect__placeholder {
+                display: none
+            }
+
+            .multiselect--above.multiselect--active .multiselect__current, .multiselect--above.multiselect--active .multiselect__input, .multiselect--above.multiselect--active .multiselect__tags {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0
+            }
+
+            .multiselect__tag ~ .multiselect__input, .multiselect__tag ~ .multiselect__single {
+                width: auto
+            }
+
+            .multiselect__tags-wrap {
+                display: inline
+            }
+
+            .multiselect__tags {
+                background-color: #ffffff;
+                border-color: #aeb0b5;
+                border-radius: 4px;
+                border-style: solid;
+                border-width: 1px;
+                display: block;
+                padding: 4px 40px 0 6px
+            }
+
+            .multiselect__tag {
+                background-color: #e4e2e0;
+                border-radius: 3px;
+                color: #212121;
+                display: inline-block;
+                line-height: 1;
+                margin-bottom: 5px;
+                margin-right: 10px;
+                max-width: 100%;
+                overflow: hidden;
+                padding: 4px 26px 4px 10px;
+                position: relative;
+                text-overflow: ellipsis;
+                white-space: nowrap
+            }
+
+            .multiselect__tag-icon {
+                border-radius: 3px;
+                bottom: 0;
+                cursor: pointer;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 22px;
+                margin-left: 7px;
+                position: absolute;
+                right: 0;
+                text-align: center;
+                top: 0;
+                transition: all .2s ease;
+                width: 22px
+            }
+
+            .multiselect__tag-icon:after {
+                color: #212121;
+                content: '\D7';
+                font-size: 14px
+            }
+
+            .multiselect__tag-icon:focus, .multiselect__tag-icon:hover {
+                background-color: #aeb0b5
+            }
+
+            .multiselect__tag-icon:focus:after, .multiselect__tag-icon:hover:after {
+                color: #cd2026
+            }
+
+            .multiselect__current, .multiselect__select {
+                box-sizing: border-box;
+                cursor: pointer;
+                display: block;
+                line-height: 16px;
+                margin: 0;
+                text-decoration: none
+            }
+
+            .multiselect__current {
+                border-radius: 5px;
+                border: 1px solid #e8e8e8;
+                min-height: 40px;
+                overflow: hidden;
+                white-space: nowrap;
+                padding: 8px 12px 0
+            }
+
+            .multiselect__select {
+                bottom: 1px;
+                padding: 4px 8px;
+                position: absolute;
+                right: 1px;
+                text-align: center;
+                top: 1px;
+                transition: transform .2s ease;
+                width: 40px
+            }
+
+            .multiselect__select:before {
+                border-color: #999999 transparent transparent;
+                border-style: solid;
+                border-width: 5px 5px 0;
+                color: #999999;
+                content: '';
+                margin-top: 4px;
+                position: relative;
+                right: 0;
+                top: 100%
+            }
+
+            .multiselect__placeholder {
+                color: #adadad;
+                display: inline-block;
+                margin-bottom: 10px;
+                padding-top: 2px
+            }
+
+            .multiselect__content-wrapper {
+                background: #ffffff;
+                border-color: #aeb0b5;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                border-style: solid;
+                border-width: 0 1px 1px;
+                display: block;
+                max-height: 240px;
+                overflow: auto;
+                position: absolute;
+                width: 100%;
+                z-index: 1
+            }
+
+            .multiselect__content {
+                display: inline-block;
+                list-style: none;
+                margin: 0;
+                min-width: 100%;
+                padding: 0;
+                vertical-align: top
+            }
+
+            .multiselect__content::webkit-scrollbar {
+                display: none
+            }
+
+            .multiselect--above .multiselect__content-wrapper {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                border-bottom-width: 0;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                border-top-width: 1px;
+                bottom: 100%
+            }
+
+            .multiselect__element {
+                display: block
+            }
+
+            .multiselect__option {
+                cursor: pointer;
+                display: block;
+                line-height: 16px;
+                min-height: 40px;
+                padding: 12px;
+                position: relative;
+                text-decoration: none;
+                text-transform: none;
+                vertical-align: middle;
+                white-space: nowrap
+            }
+
+            .multiselect__option:after {
+                line-height: 40px;
+                padding-left: 20px;
+                padding-right: 12px;
+                position: absolute;
+                right: 0;
+                top: 0
+            }
+
+            .multiselect__option--highlight {
+                background-color: #aeb0b5;
+                color: #212121;
+                font-weight: 600
+            }
+
+            .multiselect__option--highlight:after {
+                background-color: #aeb0b5
+            }
+
+            .multiselect__option--selected {
+                background-color: #e4e2e0;
+                color: #212121;
+                font-weight: 400
+            }
+
+            .multiselect__option--highlight:after, .multiselect__option--selected:after {
+                color: #212121;
+                content: '\f046';
+                font-family: FontAwesome
+            }
+
+            .multiselect__option--selected.multiselect__option--highlight {
+                background-color: #aeb0b5;
+                color: #323a45;
+                font-weight: 600
+            }
+
+            .multiselect__option--selected.multiselect__option--highlight:after {
+                background-color: #aeb0b5;
+                color: #cd2026;
+                content: '\f00d';
+                font-family: FontAwesome
+            }
+
+            .multiselect__option--disabled {
+                background-color: #d6d7d9;
+                color: #212121;
+                cursor: text;
+                pointer-events: none
+            }
+
+            .multiselect__option--disabled.multiselect__option--highlight {
+                background-color: #e4e2e0 !important
+            }
+
+            .multiselect-enter-active {
+                transition: all .15s ease
+            }
+
+            .multiselect-enter, .multiselect-leave-active {
+                opacity: 0
+            }
+
+            .multiselect__strong {
+                margin-bottom: 8px;
+                line-height: 20px;
+                display: inline-block;
+                vertical-align: top
+            }
+
+            [dir=rtl] .multiselect {
+                text-align: right
+            }
+
+            [dir=rtl] .multiselect__select {
+                left: 1px;
+                right: auto
+            }
+
+            [dir=rtl] .multiselect__tags {
+                padding: 8px 8px 0 40px
+            }
+
+            [dir=rtl] .multiselect__content {
+                text-align: right
+            }
+
+            [dir=rtl] .multiselect__option:after {
+                left: 0;
+                right: auto
+            }
+
+            [dir=rtl] .multiselect__clear {
+                left: 12px;
+                right: auto
+            }
+
+            [dir=rtl] .multiselect__spinner {
+                right: auto;
+                left: 1px
+            }
+
+            .xh-form {
+                border: 1px solid #757575;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 400px;
+                padding: 16px
+            }
+
+            .xh-form input[type=submit] {
+                background-color: #0071bc;
+                border: 1px solid transparent;
+                border-radius: 0;
+                color: #ffffff;
+                padding: 8px
+            }
+
+            .password-input-container {
+                display: -ms-flexbox;
+                display: flex
+            }
+
+            .password-input-container .basic-input {
+                border-bottom-right-radius: 0;
+                border-right: 0;
+                border-top-right-radius: 0;
+                -ms-flex: 1 1 auto;
+                flex: 1 1 auto
+            }
+
+            .password-input-container .show-password-btn {
+                background-color: #ffffff;
+                border: 1px solid #0071bc;
+                border-bottom-left-radius: 0;
+                border-radius: 4px;
+                border-top-left-radius: 0;
+                color: #0071bc;
+                -ms-flex: 1 0 auto;
+                flex: 1 0 auto;
+                min-width: 60px
+            }
+
+            /*# sourceMappingURL=../../maps/assets/styles/typical-lib-5692606bb3.css.map */
+            html {
+                line-height: 1.15;
+                -ms-text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+                box-sizing: border-box
+            }
+
+            body {
+                margin: 0;
+                color: #323a45;
+                font-family: sans-serif;
+                font-size: 16px
+            }
+
+            article, aside, details, figcaption, figure, footer, header, main, menu, nav, section {
+                display: block
+            }
+
+            h1 {
+                font-size: 2em;
+                margin: .67em 0
+            }
+
+            figure {
+                margin: 1em 40px
+            }
+
+            hr {
+                box-sizing: content-box;
+                height: 0;
+                overflow: visible
+            }
+
+            code, kbd, pre, samp {
+                font-family: monospace, monospace;
+                font-size: 1em
+            }
+
+            a {
+                background-color: transparent;
+                -webkit-text-decoration-skip: objects
+            }
+
+            abbr[title] {
+                border-bottom: none;
+                text-decoration: underline dotted
+            }
+
+            b, strong {
+                font-weight: bolder
+            }
+
+            dfn {
+                font-style: italic
+            }
+
+            mark {
+                background-color: #ffff00;
+                color: #000000
+            }
+
+            small {
+                font-size: 80%
+            }
+
+            sub, sup {
+                font-size: 75%;
+                line-height: 0;
+                position: relative;
+                vertical-align: baseline
+            }
+
+            sub {
+                bottom: -.25em
+            }
+
+            sup {
+                top: -.5em
+            }
+
+            audio, canvas, video {
+                display: inline-block
+            }
+
+            audio:not([controls]) {
+                display: none;
+                height: 0
+            }
+
+            img {
+                border-style: none
+            }
+
+            svg:not(:root) {
+                overflow: hidden
+            }
+
+            button, input, optgroup, select, textarea {
+                font-family: sans-serif;
+                font-size: 100%;
+                line-height: 1.15;
+                margin: 0
+            }
+
+            button, input {
+                overflow: visible
+            }
+
+            button, select {
+                text-transform: none
+            }
+
+            [type=reset], [type=submit], button, html [type=button] {
+                -webkit-appearance: button
+            }
+
+            [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner, button::-moz-focus-inner {
+                border-style: none;
+                padding: 0
+            }
+
+            [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring, button:-moz-focusring {
+                outline: 1px dotted ButtonText
+            }
+
+            [type=checkbox], [type=radio] {
+                box-sizing: border-box;
+                padding: 0
+            }
+
+            [type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button {
+                height: auto
+            }
+
+            [type=search] {
+                -webkit-appearance: textfield;
+                outline-offset: -2px
+            }
+
+            [type=search]::-webkit-search-cancel-button, [type=search]::-webkit-search-decoration {
+                -webkit-appearance: none
+            }
+
+            ::-webkit-file-upload-button {
+                -webkit-appearance: button;
+                font: inherit
+            }
+
+            fieldset {
+                padding: .35em .75em .625em
+            }
+
+            legend {
+                box-sizing: border-box;
+                display: table;
+                max-width: 100%;
+                padding: 0;
+                color: inherit;
+                white-space: normal
+            }
+
+            progress {
+                display: inline-block;
+                vertical-align: baseline
+            }
+
+            textarea {
+                overflow: auto
+            }
+
+            summary {
+                display: list-item
+            }
+
+            [hidden], template {
+                display: none
+            }
+
+            *, ::after, ::before {
+                box-sizing: inherit
+            }
+
+            .access-dropdown-toggle {
+                border: 1px solid transparent;
+                border-radius: 0;
+                background-color: #4773aa;
+                color: #ffffff;
+                display: block;
+                line-height: 32px;
+                padding-left: 8px;
+                padding-right: 8px;
+                width: 100%
+            }
+
+            @media (min-width: 601px) {
+                .access-dropdown-toggle {
+                    width: auto
+                }
+            }
+
+            .access-dropdown-close, .access-dropdown-menu {
+                display: none
+            }
+
+            .access-dropdown-close-area {
+                background-color: #ffffff;
+                height: 48px;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0
+            }
+
+            @media (min-width: 601px) {
+                .access-dropdown-close-area {
+                    display: none
+                }
+            }
+
+            .access-dropdown-menu {
+                background-color: #ffffff;
+                box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .25)
+            }
+
+            .access-dropdown-content {
+                padding: 16px
+            }
+
+            @media (max-width: 600px) {
+                .access-dropdown-content {
+                    margin-top: 48px
+                }
+            }
+
+            .access-dropdown-content p:first-child {
+                margin-top: 0
+            }
+
+            .access-dropdown-content p:last-child {
+                margin-bottom: 0
+            }
+
+            .access-dropdown-close {
+                border: 1px solid transparent;
+                border-radius: 0;
+                float: right;
+                font-size: 20px;
+                height: 48px;
+                padding: 0;
+                width: 48px
+            }
+
+            .inline-styling-was-stopped {
+                background-color: red
+            }
+
+            .full-screen {
+                background-color: #0000ff
+            }
+
+            .all-width-center-height {
+                background-color: green
+            }
+
+            .all-height-center-width {
+                background-color: #ffff00
+            }
+
+            .left-bottom {
+                background-color: orange
+            }
+
+            .left-top {
+                background-color: #90ee90
+            }
+
+            .right-bottom {
+                background-color: #00ffff
+            }
+
+            .right-top {
+                background-color: #8a2be2
+            }
+
+            .page-bar {
+                background-color: #d6d7d9
+            }
+
+            .page-bar-container, .page-content {
+                max-width: 1440px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 16px;
+                padding-right: 16px
+            }
+
+            .page-bar-container:after, .page-content:after {
+                content: " ";
+                display: block;
+                clear: both
+            }
+
+            @media (min-width: 1025px) {
+                .page-bar-container, .page-content {
+                    padding-left: 56px;
+                    padding-right: 56px
+                }
+            }
+
+            .page-bar-container {
+                display: -ms-flexbox;
+                display: flex;
+                padding-bottom: 8px;
+                padding-top: 8px
+            }
+
+            .page-bar-container::after {
+                clear: both;
+                content: ' ';
+                display: table
+            }
+
+            .page-bar-item {
+                -ms-flex: 0 1 auto;
+                flex: 0 1 auto;
+                float: left
+            }
+
+            .only-two-items .page-bar-item:last-child {
+                float: right;
+                margin-left: auto
+            }
+
+            @media (min-width: 601px) {
+                .earth .access-dropdown-content, .jupiter .access-dropdown-content {
+                    width: 625px
+                }
+
+                .neptune .access-dropdown-content {
+                    width: 400px
+                }
+            }
+
+            .page-bar.many-items .access-dropdown-toggle {
+                background-color: transparent;
+                color: #5b616b
+            }
+
+            .page-bar-items {
+                margin-left: -8px;
+                margin-right: -8px
+            }
+
+            @media (min-width: 601px) {
+                .greek-letter .access-dropdown-menu {
+                    max-width: 450px
+                }
+            }
+
+            /*# sourceMappingURL=../../maps/assets/styles/dropdown-page3-a80bb1d04a.css.map */
+        </style>
+    </head>
+    <body>
+        <main role="main">
+            <div class="page-content">
+                <h1>Dropdown Page 3 ES6</h1>
+                <div class="foo-drop neptune">
+                    <button class="access-dropdown-toggle">Hello Neptune</button>
+                    <div class="access-dropdown-menu">
+                        <div class="access-dropdown-close-area">
+                            <button class="access-dropdown-close" aria-label="Close dropdown"><i class="fa fa-times"
+                                aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <ul class="access-dropdown-menu-list">
+                            <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                            <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                            <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                            <li class="access-dropdown-divider" aria-hidden="true"></li>
+                            <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copy">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat maximus tellus eu varius. Cras ac ultricies magna, sit amet ultricies nisi. Cras elementum, mi vitae gravida elementum, ex felis ornare odio, in euismod metus mi eget ante.
+                        Quisque lacinia nec nulla vitae aliquam. Quisque scelerisque nisl enim. Praesent elementum bibendum efficitur. Nulla facilisi. Maecenas nec purus est. Nulla semper molestie tempor. Suspendisse volutpat dolor massa, sit amet consequat lectus
+                        gravida et. Fusce magna dui, elementum id efficitur id, bibendum sed metus.</p>
+                    <p>Donec nec nisi id turpis placerat facilisis. In pulvinar scelerisque egestas. Mauris eget nisl ut dolor sodales ullamcorper. Cras iaculis egestas rhoncus. Pellentesque sed metus id ligula suscipit sollicitudin at id velit. Pellentesque posuere
+                        odio a eros laoreet, vitae suscipit lectus rutrum. Curabitur rhoncus dictum libero eget scelerisque. Maecenas vitae finibus eros. Donec ultrices odio sit amet sodales porta. Donec elit turpis, convallis eu mollis eget, feugiat in ipsum. Vivamus
+                        iaculis vehicula libero, sit amet bibendum mi. Etiam at urna convallis, sollicitudin velit vel, mattis odio.</p>
+                </div>
+            </div>
+            <div class="page-bar only-two-items">
+                <div class="page-bar-container">
+                    <div class="page-bar-item">
+                        <div class="foo-drop earth">
+                            <button class="access-dropdown-toggle">Hello Earth</button>
+                            <div class="access-dropdown-menu">
+                                <div class="access-dropdown-close-area">
+                                    <button class="access-dropdown-close" aria-label="Close dropdown"><i class="fa fa-times"
+                                        aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <ul class="access-dropdown-menu-list">
+                                    <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                                    <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                                    <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                                    <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-bar-item">
+                        <div class="foo-drop jupiter">
+                            <button class="access-dropdown-toggle">Hello Jupiter</button>
+                            <div class="access-dropdown-menu">
+                                <div class="access-dropdown-close-area">
+                                    <button class="access-dropdown-close" aria-label="Close dropdown"><i class="fa fa-times"
+                                        aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <ul class="access-dropdown-menu-list">
+                                    <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                                    <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                                    <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a></li>
+                                    <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                    <li><a class="access-dropdown-item"
+                                        href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="copy">
+                    <p>Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum, eu venenatis metus elit eu elit. Proin imperdiet sit amet justo eget auctor. Sed non hendrerit nibh, eget dictum velit. Cras sed porttitor tellus. Phasellus et enim et leo
+                        volutpat vehicula vitae sed orci. Sed accumsan diam ante, in condimentum mauris rutrum a. Aliquam risus purus, lacinia vitae eros et, volutpat maximus ante. Mauris viverra ex eu nisl auctor, sit amet laoreet risus dignissim. Suspendisse ligula
+                        ipsum, placerat vitae ultricies sed, posuere vel est. Maecenas egestas magna mi, ut tempor nibh fermentum vitae. Phasellus urna turpis, pharetra ut ex finibus, consectetur fringilla ex. Pellentesque mattis feugiat urna, a gravida urna malesuada
+                        vitae. Nullam varius vulputate nulla a pretium. Curabitur quam augue, vehicula sit amet neque non, gravida iaculis sapien. Mauris tincidunt quis neque id euismod. Sed in erat sed nibh iaculis lobortis.</p>
+                    <p>Donec nisi est, porta quis velit et, efficitur venenatis metus. Suspendisse consectetur hendrerit turpis at fringilla. Cras ullamcorper justo a est condimentum tempor eu nec lorem. Pellentesque ipsum turpis, molestie quis sagittis non, varius
+                        in felis. Sed non gravida nibh, vel sagittis massa. Cras dignissim at enim nec convallis. Maecenas vestibulum, lacus eu dignissim semper, nibh nisi mollis tellus, convallis scelerisque elit justo a nisl. Proin eget augue at arcu ultrices ultrices.
+                        Integer ut mauris sit amet enim vulputate rutrum. Quisque ut imperdiet est, et dignissim odio.</p>
+                    <p>Nullam nulla augue, convallis a venenatis sed, euismod eu leo. Mauris vitae eleifend lacus. Maecenas eu vulputate ex, eget finibus magna. Quisque porttitor risus eu lectus mollis, vel mollis lacus vestibulum. Maecenas ultrices est nec ipsum sagittis
+                        tempus. Donec a massa nec est mattis vulputate at eget ante. Aenean nec placerat libero. Nullam tellus leo, sollicitudin at leo ac, ultricies aliquet erat. Duis gravida a tortor ut iaculis. Nullam aliquam pellentesque eleifend. Curabitur vehicula
+                        arcu gravida arcu dictum ullamcorper.</p>
+                    <p>Tempor et dolor nisi laboris irure magna consequat enim eu laboris exercitation exercitation aliqua veniam. Cillum dolore laborum fugiat reprehenderit irure pariatur duis eiusmod dolore Lorem velit veniam duis. Eiusmod fugiat ex Lorem nisi. Dolore
+                        dolore exercitation aliquip reprehenderit dolore ut eu laboris aliquip nulla voluptate adipisicing id. Ea veniam nostrud occaecat cupidatat proident consequat quis ullamco eiusmod anim deserunt adipisicing.</p>
+                    <p>Enim reprehenderit laboris et aute. Magna commodo dolor aliqua commodo ex. Dolor deserunt aliqua voluptate laborum et velit reprehenderit enim tempor dolore non consequat culpa. Eiusmod enim commodo deserunt est fugiat quis consectetur occaecat
+                        sunt ad tempor nulla culpa ullamco. Lorem veniam elit anim excepteur amet id proident nostrud cillum culpa. Commodo laborum eiusmod enim ad duis laboris. Et velit fugiat voluptate dolor deserunt proident ad in enim sint.</p>
+                </div>
+            </div>
+            <div class="page-bar many-items">
+                <div class="page-bar-container">
+                    <div class="page-bar-items">
+                        <div class="page-bar-item">
+                            <div class="foo-drop greek-letter">
+                                <button class="access-dropdown-toggle">Gamma</button>
+                                <div class="access-dropdown-menu">
+                                    <div class="access-dropdown-close-area">
+                                        <button class="access-dropdown-close" aria-label="Close dropdown"><i
+                                            class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="access-dropdown-menu-list">
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-bar-item">
+                            <div class="foo-drop greek-letter">
+                                <button class="access-dropdown-toggle">Theta</button>
+                                <div class="access-dropdown-menu">
+                                    <div class="access-dropdown-close-area">
+                                        <button class="access-dropdown-close" aria-label="Close dropdown"><i
+                                            class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="access-dropdown-menu-list">
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-bar-item">
+                            <div class="foo-drop greek-letter">
+                                <button class="access-dropdown-toggle">Alpha</button>
+                                <div class="access-dropdown-menu">
+                                    <div class="access-dropdown-close-area">
+                                        <button class="access-dropdown-close" aria-label="Close dropdown"><i
+                                            class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="access-dropdown-menu-list">
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-bar-item">
+                            <div class="foo-drop greek-letter">
+                                <button class="access-dropdown-toggle">Sigma</button>
+                                <div class="access-dropdown-menu">
+                                    <div class="access-dropdown-close-area">
+                                        <button class="access-dropdown-close" aria-label="Close dropdown"><i
+                                            class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="access-dropdown-menu-list">
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-bar-item">
+                            <div class="foo-drop greek-letter">
+                                <button class="access-dropdown-toggle">Beta</button>
+                                <div class="access-dropdown-menu">
+                                    <div class="access-dropdown-close-area">
+                                        <button class="access-dropdown-close" aria-label="Close dropdown"><i
+                                            class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="access-dropdown-menu-list">
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-bar-item">
+                            <div class="foo-drop greek-letter">
+                                <button class="access-dropdown-toggle">Epsilon</button>
+                                <div class="access-dropdown-menu">
+                                    <div class="access-dropdown-close-area">
+                                        <button class="access-dropdown-close" aria-label="Close dropdown"><i
+                                            class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="access-dropdown-menu-list">
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-bar-item">
+                            <div class="foo-drop greek-letter">
+                                <button class="access-dropdown-toggle">Psi</button>
+                                <div class="access-dropdown-menu">
+                                    <div class="access-dropdown-close-area">
+                                        <button class="access-dropdown-close" aria-label="Close dropdown"><i
+                                            class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="access-dropdown-menu-list">
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item" href="javascript:void(0)">Dropdown Option</a>
+                                        </li>
+                                        <li class="access-dropdown-divider" aria-hidden="true"></li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                        <li><a class="access-dropdown-item"
+                                            href="javascript:void(0)">Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="copy">
+                    <p>Maecenas dignissim, dui vitae luctus aliquam, felis neque rutrum ipsum, eu venenatis metus elit eu elit. Proin imperdiet sit amet justo eget auctor. Sed non hendrerit nibh, eget dictum velit. Cras sed porttitor tellus. Phasellus et enim et leo
+                        volutpat vehicula vitae sed orci. Sed accumsan diam ante, in condimentum mauris rutrum a. Aliquam risus purus, lacinia vitae eros et, volutpat maximus ante. Mauris viverra ex eu nisl auctor, sit amet laoreet risus dignissim. Suspendisse ligula
+                        ipsum, placerat vitae ultricies sed, posuere vel est. Maecenas egestas magna mi, ut tempor nibh fermentum vitae. Phasellus urna turpis, pharetra ut ex finibus, consectetur fringilla ex. Pellentesque mattis feugiat urna, a gravida urna malesuada
+                        vitae. Nullam varius vulputate nulla a pretium. Curabitur quam augue, vehicula sit amet neque non, gravida iaculis sapien. Mauris tincidunt quis neque id euismod. Sed in erat sed nibh iaculis lobortis.</p>
+                    <p>Donec nisi est, porta quis velit et, efficitur venenatis metus. Suspendisse consectetur hendrerit turpis at fringilla. Cras ullamcorper justo a est condimentum tempor eu nec lorem. Pellentesque ipsum turpis, molestie quis sagittis non, varius
+                        in felis. Sed non gravida nibh, vel sagittis massa. Cras dignissim at enim nec convallis. Maecenas vestibulum, lacus eu dignissim semper, nibh nisi mollis tellus, convallis scelerisque elit justo a nisl. Proin eget augue at arcu ultrices ultrices.
+                        Integer ut mauris sit amet enim vulputate rutrum. Quisque ut imperdiet est, et dignissim odio.</p>
+                    <p>Nullam nulla augue, convallis a venenatis sed, euismod eu leo. Mauris vitae eleifend lacus. Maecenas eu vulputate ex, eget finibus magna. Quisque porttitor risus eu lectus mollis, vel mollis lacus vestibulum. Maecenas ultrices est nec ipsum sagittis
+                        tempus. Donec a massa nec est mattis vulputate at eget ante. Aenean nec placerat libero. Nullam tellus leo, sollicitudin at leo ac, ultricies aliquet erat. Duis gravida a tortor ut iaculis. Nullam aliquam pellentesque eleifend. Curabitur vehicula
+                        arcu gravida arcu dictum ullamcorper.</p>
+                    <p>Tempor et dolor nisi laboris irure magna consequat enim eu laboris exercitation exercitation aliqua veniam. Cillum dolore laborum fugiat reprehenderit irure pariatur duis eiusmod dolore Lorem velit veniam duis. Eiusmod fugiat ex Lorem nisi. Dolore
+                        dolore exercitation aliquip reprehenderit dolore ut eu laboris aliquip nulla voluptate adipisicing id. Ea veniam nostrud occaecat cupidatat proident consequat quis ullamco eiusmod anim deserunt adipisicing.</p>
+                    <p>Enim reprehenderit laboris et aute. Magna commodo dolor aliqua commodo ex. Dolor deserunt aliqua voluptate laborum et velit reprehenderit enim tempor dolore non consequat culpa. Eiusmod enim commodo deserunt est fugiat quis consectetur occaecat
+                        sunt ad tempor nulla culpa ullamco. Lorem veniam elit anim excepteur amet id proident nostrud cillum culpa. Commodo laborum eiusmod enim ad duis laboris. Et velit fugiat voluptate dolor deserunt proident ad in enim sint.</p>
+                    <p>Consequat sunt esse occaecat officia proident in quis consectetur eiusmod ex. Adipisicing fugiat veniam ipsum sint magna anim tempor voluptate. Ex non nisi ex labore duis voluptate esse. Sint minim in ipsum Lorem duis do occaecat anim deserunt.
+                        Consequat commodo cillum dolor aliquip Lorem eu consectetur velit est anim. Do deserunt magna sunt excepteur ex non aliquip irure mollit velit veniam occaecat. Proident ullamco magna cillum ex consectetur pariatur ullamco magna sunt enim excepteur
+                        voluptate.</p>
+                    <p>Aliquip adipisicing non et tempor ut consectetur dolor. Amet proident reprehenderit aliqua quis laborum ullamco laboris. Exercitation amet do minim minim quis labore pariatur aliquip culpa consequat sit culpa id ut. Qui do dolor eiusmod Lorem
+                        officia incididunt cillum. Quis pariatur deserunt anim tempor ad.</p>
+                    <p>Reprehenderit adipisicing deserunt dolor anim in. Commodo amet anim laborum ipsum nulla consectetur dolore excepteur pariatur officia. Ad exercitation ea anim nostrud minim. Excepteur do elit fugiat officia aliqua ullamco est. Lorem proident aliquip
+                        laboris laborum occaecat aliqua laboris velit commodo non magna dolore sint nisi. Ullamco est tempor nisi anim quis.</p>
+                    <p>Enim ex aliqua pariatur exercitation non aute veniam. Cupidatat culpa est quis in id voluptate minim ullamco elit eu aliquip laboris excepteur nisi. Proident labore commodo ad cillum sint officia culpa. Enim mollit adipisicing aliquip excepteur
+                        aliquip deserunt id ex ad. Veniam nulla Lorem minim laboris commodo sit eiusmod ad nulla non sunt ad qui.</p>
+                    <p>Commodo elit magna et adipisicing. Sint velit velit reprehenderit nulla anim aliquip in magna fugiat pariatur. Fugiat ut aliquip deserunt eiusmod labore minim culpa eu duis ullamco culpa eu sint mollit. Dolor sint voluptate ipsum fugiat aute occaecat
+                        duis irure excepteur anim ex anim consequat sint. Aute Lorem laborum excepteur aliquip sunt magna tempor voluptate cupidatat reprehenderit. Veniam id excepteur sint do non exercitation sint ipsum cupidatat do.</p>
+                </div>
+            </div>
+        </main>
+        <script src="bundle.js"></script>
+        <script>
+            (function (AccessDropdown) {
+                'use strict';
+
+                var fooDropList, i, dropdown, aList, aClickBind;
+
+                aList = document.querySelectorAll('.access-dropdown-menu-list a');
+
+                aClickBind = function(event) {
+                    if (window.confirm('Click handler, should this action close dropdown?')) {
+                        var customEvent = new CustomEvent('access-dropdown:close', {
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        event.target.dispatchEvent(customEvent);
+                    }
+                };
+                for (var i = 0; i < aList.length; i++) {
+                    aList[i].addEventListener('click', aClickBind);
+                }
+
+                fooDropList = document.querySelectorAll('.foo-drop');
+                for (i = 0; i < fooDropList.length; i++) {
+                    dropdown = new AccessDropdown({ //jshint ignore:line
+                        el: fooDropList[i],
+                        plusTop: 5,
+                        plusRight: 0,
+                        plusBottom: 10,
+                        plusLeft: 0,
+                        callbacks: {
+                            preFocusMoved: function () { //user callback
+                                console.log('pre focus moved');
+                            },
+                            preFocusOut: function () { //user callback
+                                console.log('pre focus out');
+                            },
+                            preOpen: function () { //user callback
+                                console.log('before it is opened');
+                            },
+                            postClose: function (reason) { //user callback
+                                console.log('dropdown was closed for', reason);
+                            }
+                        }
+                    });
+                }
+            }(window.AccessDropdown));
+        </script>
+    </body>
+</html>
