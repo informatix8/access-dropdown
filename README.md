@@ -1,5 +1,15 @@
 # Access Dropdown
 
+## Features
+- Autopositioning with requestAnimationFrame: the dropdown always stays on screen
+- Click outside to dismiss
+- Press `Esc` to dismiss
+- Click the `X` to dismiss on small screens
+- When focus finally leaves the dropdown’s content when using `Tab`, the dropdown is dismissed
+- Inline styles can be disabled
+- After dismissal, focus is returned to the last focused element or a designated element
+- Pre and post user defined functions can be called during significant events
+
 ## Usage
 
 ### Install
