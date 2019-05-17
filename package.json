@@ -2,7 +2,7 @@
   "name": "@informatix8/access-dropdown",
   "version": "1.0.0",
   "title": "Access Dropdown",
-  "description": "Accessible dropdown",
+  "description": "Autopositioning accessible dropdown",
   "repository": {
     "type": "git",
     "url": "git@github.com:informatix8/access-dropdown.git"
