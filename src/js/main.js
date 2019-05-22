@@ -79,6 +79,10 @@ class AccessDropdown {
                 window.setTimeout(callback, 1000 / 60);
             };
 
+        if (document.body.getAttribute('data-access-dropdowns-opened') === null) {
+            document.body.setAttribute('data-access-dropdowns-opened', '0');
+        }
+
         defaults = {};
         defaults.el = null;
         defaults.dropdownTriggerSelector = '.access-dropdown-toggle';
@@ -407,6 +411,8 @@ class AccessDropdown {
         this.isOpen = true;
 
         this.callCustom('preOpen');
+
+        document.body.setAttribute('data-access-dropdowns-opened', document.body.getAttribute('data-access-dropdowns-opened') * 1 + 1);
 
         this.dropdownTrigger.setAttribute('aria-expanded', true);
         this.dropdownBody.setAttribute('aria-hidden', false);
@@ -842,6 +848,7 @@ class AccessDropdown {
 
         this.callCustom('preClose', reason);
 
+        document.body.setAttribute('data-access-dropdowns-opened', document.body.getAttribute('data-access-dropdowns-opened') * 1 - 1);
         this.dropdownTrigger.setAttribute('aria-expanded', false);
         this.dropdownBody.setAttribute('aria-hidden', true);
         if (!this.disabledDisplayAttr) {

@@ -3186,13 +3186,11 @@ var AccessDropdown = (function () {
 	}));
 	});
 
-	/* jshint browser: true */
-
 	class AccessDropdown {
 
 	    /**
 	     @class AccessDropdown
-	     @summary Autopositioning and accessible dropdown
+	     @summary Autopositioning accessible dropdown
 	     @param {Object} options - Supplied configuration
 
 	     @param {String|HTMLElement} options.el - The dropdown container element. Either an HTML element object or selector string. **Required**
@@ -3262,6 +3260,10 @@ var AccessDropdown = (function () {
 	            function (callback) {
 	                window.setTimeout(callback, 1000 / 60);
 	            };
+
+	        if (document.body.getAttribute('data-access-dropdowns-opened') === null) {
+	            document.body.setAttribute('data-access-dropdowns-opened', '0');
+	        }
 
 	        defaults = {};
 	        defaults.el = null;
@@ -3591,6 +3593,8 @@ var AccessDropdown = (function () {
 	        this.isOpen = true;
 
 	        this.callCustom('preOpen');
+
+	        document.body.setAttribute('data-access-dropdowns-opened', document.body.getAttribute('data-access-dropdowns-opened') * 1 + 1);
 
 	        this.dropdownTrigger.setAttribute('aria-expanded', true);
 	        this.dropdownBody.setAttribute('aria-hidden', false);
@@ -4026,6 +4030,7 @@ var AccessDropdown = (function () {
 
 	        this.callCustom('preClose', reason);
 
+	        document.body.setAttribute('data-access-dropdowns-opened', document.body.getAttribute('data-access-dropdowns-opened') * 1 - 1);
 	        this.dropdownTrigger.setAttribute('aria-expanded', false);
 	        this.dropdownBody.setAttribute('aria-hidden', true);
 	        if (!this.disabledDisplayAttr) {
@@ -4085,8 +4090,10 @@ var AccessDropdown = (function () {
 	                function (s) {
 	                    let matches = (this.document || this.ownerDocument).querySelectorAll(s),
 	                        i = matches.length;
+	                    // jscs:disable disallowEmptyBlocks
 	                    while (--i >= 0 && matches.item(i) !== this) {
 	                    }
+	                    // jscs:enable disallowEmptyBlocks
 
 	                    return i > -1;
 	                };
