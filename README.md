@@ -1,7 +1,12 @@
 # Access Dropdown
 
+Auto-positioning accessible dropdown.
+
+Examples and the API are in the [documentation](https://access-dropdown.com/).
+
+
 ## Features
-- Autopositioning with requestAnimationFrame: the dropdown always stays on screen
+- Auto-positioning with `requestAnimationFrame`: the dropdown tries to stay on screen
 - Click outside to dismiss
 - Press `Esc` to dismiss
 - Click the `X` to dismiss on small screens
